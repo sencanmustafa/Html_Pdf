@@ -42,7 +42,7 @@ def login():
         if data_acces.validate(t_username, t_password):
             session["logged_in"] = True
             session["username"] = t_username
-            flash("Giriş Başarılı","success")
+            flash("Correct!","success")
             return redirect(url_for("convert"))
         else:
             return redirect(url_for("login"))
