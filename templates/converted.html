@@ -1,15 +1,15 @@
 {% extends "layout.html" %}
 
 {% from "includes/formhelpers.html" import render_field %}
-
+{
 {%block body%}
 
 <ul  class="list-group">
 
-    {% for data in mylist %}
-    <li class="list-group-item" > {{data}}</li>
-    {% endfor %}
+    {% for item in session.pop('my_list',[]) %}
+    <li class="list-group-item" > {{item}}</li>
 
+    {% endfor %}
 
 </ul>
 

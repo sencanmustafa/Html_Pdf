@@ -1,11 +1,14 @@
 # -*- coding:utf-8 -*-
 import wtforms
-from flask import Flask , render_template ,flash,redirect,url_for,session,logging,request
+from flask import Flask ,Response, render_template ,flash,redirect,url_for,session,logging,request,make_response
 from wtforms import Form,StringField,TextAreaField,PasswordField,validators
+import pdfkit
+import sys
+import urllib.parse
 from passlib.hash import sha256_crypt
 from werkzeug.security import generate_password_hash,check_password_hash
 import data_acces
-import pdfkit
+
 from functools import wraps
 class LoginForm(Form):
     username = StringField("Username",validators=[validators.length(min=3),validators.DataRequired()])
@@ -43,14 +46,13 @@ def login():
             return redirect(url_for("convert"))
         else:
             return redirect(url_for("login"))
-
-
     else:
-
         return render_template("login.html", form = form)
 
-@app.route("/converted")
+@app.route("/converted",methods = ["GET","POST"])
+@login_required
 def converted():
+
     return render_template("converted.html")
 @app.route("/logout")
 def logout():
@@ -68,11 +70,13 @@ def convert():
         mylist  = [data_text1,data_text2]
         # data in the list
         flash("Converting...","success")
+        session['my_list'] = mylist
+        return redirect(url_for("converted"))
 
-        return render_template("converted.html",mylist = mylist)
+
+
 
     return render_template("convert.html",form = html_form)
-
 
 @app.route("/")
 def index():
