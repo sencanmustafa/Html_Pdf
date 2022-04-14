@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
-import blog
-from blog import HtmlForm
+
 class User_db:
     def __init__(self,username,password):
         self.username = username
@@ -13,10 +12,7 @@ def validate(username,password):
         return True
 
 
-class Html:
-    def __init__(self,text1,text2):
-        self.text1 = text1
-        self.text2 = text2
+
 
 
 
