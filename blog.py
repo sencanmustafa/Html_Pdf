@@ -1,15 +1,22 @@
 # -*- coding:utf-8 -*-
+import jinja2
 import wtforms
 from flask import Flask ,Response, render_template ,flash,redirect,url_for,session,logging,request,make_response
 from wtforms import Form,StringField,TextAreaField,PasswordField,validators
 import pdfcrowd
 import sys
+import pandas as pd
+from weasyprint import HTML
 import urllib.parse
 from passlib.hash import sha256_crypt
 from werkzeug.security import generate_password_hash,check_password_hash
 import data_acces
-
 from functools import wraps
+
+
+
+
+
 class LoginForm(Form):
     username = StringField("Username",validators=[validators.length(min=3),validators.DataRequired()])
     password= PasswordField("Password",validators=[validators.DataRequired("Password")])
@@ -49,11 +56,28 @@ def login():
     else:
         return render_template("login.html", form = form)
 
+
+
+
+@app.route("/get_pdf",methods = ["GET","POST"])
+@login_required
+def get_pdf():
+    pass
+
+
 @app.route("/converted",methods = ["GET","POST"])
 @login_required
 def converted():
-
+    pdf_name = 'pdf'
+    HTML(string = html.out).write_pdf(pdf_name)
     return render_template("converted.html")
+
+
+
+
+
+
+
 @app.route("/logout")
 def logout():
     session.clear()
@@ -69,11 +93,19 @@ def convert():
         data_text2 = html_form.text2.data
         mylist  = [data_text1,data_text2]
         # data in the list
-        flash("Converting...","success")
+        flash("Converted...","success")
         session['my_list'] = mylist
-        return redirect(url_for("converted"))
-
+        return redirect(url_for("converted",mylist = mylist))
     return render_template("convert.html",form = html_form)
+
+
+
+
+
+
+
+
+
 
 @app.route("/")
 def index():
