@@ -4,18 +4,16 @@
 {
 {%block body%}
 
-<form action="{{url_for('converted',mylist = mylist)}}" method="post">
-    <button class="btn btn-info" type="submit" >GET PDF</button>
-</form>
 
 <ul  class="list-group">
 
-    <form action="{{url_for('converted',mylist = mylist)}}" method="get">
 
-    </form>
     {% for item in session.pop('my_list',[]) %}
     <li class="list-group-item" > {{item}}</li>
     {% endfor %}
+    <form action={{url_for('get_pdf')}} method="post" >
+        <button class="btn btn-primary" type="submit" >Get Pdf</button>
+    </form>
 
 
 </ul>

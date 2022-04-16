@@ -5,15 +5,13 @@
 {%block body%}
 
 
-
 <ul  class="list-group">
 
-    <form action="" method="get">
 
-    </form>
     {% for item in session.pop('my_list',[]) %}
     <li class="list-group-item" > {{item}}</li>
     {% endfor %}
+
 
 
 </ul>
