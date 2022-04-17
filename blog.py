@@ -70,7 +70,7 @@ def converted():
 
 @app.route("/logout")
 def logout():
-    data_acces.liste.clear()
+    data_acces.list.clear()
     session.clear()
     return redirect(url_for("login"))
 
