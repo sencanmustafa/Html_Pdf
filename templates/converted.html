@@ -10,14 +10,14 @@
 
     {% for item in session.pop('my_list',[]) %}
     <li class="list-group-item" > {{item}}</li>
+    <br><br><br>
     {% endfor %}
     <form action={{url_for('get_pdf')}} method="post" >
         <button class="btn btn-primary" type="submit" >Get Pdf</button>
+        <br><br><br>
     </form>
 
-    <form action="{{url_for('logout')}}" method="get">
-        <button class="btn btn-danger" type="submit">Logout</button>
-    </form>
+
 </ul>
 
 

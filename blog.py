@@ -35,19 +35,23 @@ def login_required(f):
 @app.route("/login", methods = ["GET","POST"])
 
 def login():
-    form = LoginForm(request.form)
+    Login_form = LoginForm(request.form)
     if request.method == "POST":
-        t_username = form.username.data
-        t_password = form.password.data
+        t_username = Login_form.username.data
+        t_password = Login_form.password.data
         if data_acces.validate(t_username, t_password):
             session["logged_in"] = True
             session["username"] = t_username
-            flash("Correct!","success")
+            flash(f"Correct! You logged in {t_username}!","success")
             return redirect(url_for("convert"))
         else:
+            flash("Wrong Username or Password","danger")
             return redirect(url_for("login"))
-    else:
-        return render_template("login.html", form = form)
+
+
+    return render_template("login.html",form=Login_form)
+
+
 
 @app.route("/get_pdf",methods = ["GET","POST"])
 @login_required

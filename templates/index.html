@@ -2,16 +2,22 @@
 
 {% block body%}
 
-<form action="{{url_for('login')}}" method="get">
-        <button class="btn btn-primary" type="submit">login</button>
+
+
+
+{% if session["logged_in"] %}
+<form action="{{url_for('convert')}}" method="get">
+        <button class="btn btn-primary" type="submit">Convert</button>
+        <br><br><br>
 </form>
-
-
-
-
-
-
 <form action="{{url_for('logout')}}" method="get">
         <button class="btn btn-danger" type="submit">Logout</button>
+        <br><br><br>
 </form>
+{% else %}
+<form action="{{url_for('login')}}" method="get">
+        <button class="btn btn-primary" type="submit">login</button>
+        <br><br><br>
+</form>
+{% endif %}
 {%endblock%}
