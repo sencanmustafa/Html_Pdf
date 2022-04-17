@@ -10,7 +10,7 @@ naseef = User_db("naseef","naseef")
 def validate(username,password):
     if naseef.password.split()==password.split() and naseef.username.split()==username.split():
         return True
-liste = []
+list = []
 
 
 

@@ -15,8 +15,8 @@ class LoginForm(Form):
     username = StringField("Username",validators=[validators.length(min=3),validators.DataRequired()])
     password= PasswordField("Password",validators=[validators.DataRequired("Password")])
 class HtmlForm(Form):
-    text1 = StringField("Text1")
-    text2 = StringField("Text2")
+    text1 = StringField("Text1",validators=[validators.data_required("TEXT")])
+    text2 = StringField("Text2",validators=[validators.data_required("TEXT")])
 
 app = Flask(__name__)
 app.secret_key = "mustiler463"
@@ -52,7 +52,7 @@ def login():
 @app.route("/get_pdf",methods = ["GET","POST"])
 @login_required
 def get_pdf():
-    session['my_list'] = data_acces.liste
+    session['my_list'] = data_acces.list
     if request.method == "POST":
         rendered = render_template('get_pdf.html')
         pdf = pdfkit.from_string(rendered,False)
@@ -65,14 +65,8 @@ def get_pdf():
 @app.route("/converted",methods = ["GET","POST"])
 @login_required
 def converted():
-    session['my_list'] = data_acces.liste
+    session['my_list'] = data_acces.list
     return render_template("converted.html")
-
-
-
-
-
-
 
 @app.route("/logout")
 def logout():
@@ -88,11 +82,11 @@ def convert():
     if request.method == "POST":
         data_text1 = html_form.text1.data
         data_text2 = html_form.text2.data
-        data_acces.liste.append(data_text1)
-        data_acces.liste.append(data_text2)
+        data_acces.list.append(data_text1)
+        data_acces.list.append(data_text2)
         flash("Converted...","success")
-        session['my_list'] = data_acces.liste
-        return redirect(url_for("converted",my_list = data_acces.liste))
+        session['my_list'] = data_acces.list
+        return redirect(url_for("converted",my_list = data_acces.list))
     return render_template("convert.html",form = html_form)
 
 
@@ -106,8 +100,6 @@ def convert():
 
 @app.route("/")
 def index():
-    for i in data_acces.liste:
-        print(i)
     return render_template("index.html")
 if __name__ == "__main__":
     app.run(debug=True)

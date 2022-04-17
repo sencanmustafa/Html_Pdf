@@ -9,8 +9,9 @@
     {{ render_field(form.text2) }}
     <button type="submit" class="btn btn-primary">Convert</button>
 
-
-
+</form>
+<form action="{{url_for('logout')}}" method="get">
+        <button class="btn btn-danger" type="submit">Logout</button>
 </form>
 
 
