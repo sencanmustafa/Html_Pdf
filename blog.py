@@ -21,8 +21,6 @@ class HtmlForm(Form):
 app = Flask(__name__)
 app.secret_key = "mustiler463"
 
-
-
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -93,19 +91,11 @@ def convert():
         return redirect(url_for("converted",my_list = data_acces.list))
     return render_template("convert.html",form = html_form)
 
-
-
-
-
-
-
-
-
-
 @app.route("/")
 def index():
     return render_template("index.html")
 if __name__ == "__main__":
+
     app.run(debug=True)
 
 
